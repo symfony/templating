@@ -49,7 +49,7 @@ class DelegatingEngine implements EngineInterface, StreamingEngineInterface
     {
         $engine = $this->getEngine($name);
         if (!$engine instanceof StreamingEngineInterface) {
-            throw new \LogicException(sprintf('Template "%s" cannot be streamed as the engine supporting it does not implement StreamingEngineInterface.', $name));
+            throw new \LogicException(\sprintf('Template "%s" cannot be streamed as the engine supporting it does not implement StreamingEngineInterface.', $name));
         }
 
         $engine->stream($name, $parameters);
@@ -92,6 +92,6 @@ class DelegatingEngine implements EngineInterface, StreamingEngineInterface
             }
         }
 
-        throw new \RuntimeException(sprintf('No engine is able to work with the template "%s".', $name));
+        throw new \RuntimeException(\sprintf('No engine is able to work with the template "%s".', $name));
     }
 }

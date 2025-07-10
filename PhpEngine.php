@@ -78,7 +78,7 @@ class PhpEngine implements EngineInterface, \ArrayAccess
         $parameters = array_replace($this->getGlobals(), $parameters);
         // render
         if (false === $content = $this->evaluate($storage, $parameters)) {
-            throw new \RuntimeException(sprintf('The template "%s" cannot be rendered.', $this->parser->parse($name)));
+            throw new \RuntimeException(\sprintf('The template "%s" cannot be rendered.', $this->parser->parse($name)));
         }
 
         // decorator
@@ -191,7 +191,7 @@ class PhpEngine implements EngineInterface, \ArrayAccess
      */
     public function offsetUnset(mixed $name): void
     {
-        throw new \LogicException(sprintf('You can\'t unset a helper (%s).', $name));
+        throw new \LogicException(\sprintf('You can\'t unset a helper (%s).', $name));
     }
 
     /**
@@ -250,7 +250,7 @@ class PhpEngine implements EngineInterface, \ArrayAccess
     public function get(string $name): HelperInterface
     {
         if (!isset($this->helpers[$name])) {
-            throw new \InvalidArgumentException(sprintf('The helper "%s" is not defined.', $name));
+            throw new \InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
         }
 
         return $this->helpers[$name];
@@ -332,7 +332,7 @@ class PhpEngine implements EngineInterface, \ArrayAccess
     public function getEscaper(string $context): callable
     {
         if (!isset($this->escapers[$context])) {
-            throw new \InvalidArgumentException(sprintf('No registered escaper for context "%s".', $context));
+            throw new \InvalidArgumentException(\sprintf('No registered escaper for context "%s".', $context));
         }
 
         return $this->escapers[$context];
@@ -458,7 +458,7 @@ class PhpEngine implements EngineInterface, \ArrayAccess
         $storage = $this->loader->load($template);
 
         if (false === $storage) {
-            throw new \InvalidArgumentException(sprintf('The template "%s" does not exist.', $template));
+            throw new \InvalidArgumentException(\sprintf('The template "%s" does not exist.', $template));
         }
 
         return $this->cache[$key] = $storage;

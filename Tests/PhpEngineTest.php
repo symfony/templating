@@ -38,7 +38,7 @@ class PhpEngineTest extends TestCase
     public function testOffsetGet()
     {
         $engine = new ProjectTemplateEngine(new TemplateNameParser(), $this->loader);
-        $engine->set($helper = new \Symfony\Component\Templating\Tests\Fixtures\SimpleHelper('bar'), 'foo');
+        $engine->set($helper = new Fixtures\SimpleHelper('bar'), 'foo');
         $this->assertEquals($helper, $engine['foo'], '->offsetGet() returns the value of a helper');
 
         try {
@@ -53,7 +53,7 @@ class PhpEngineTest extends TestCase
     public function testGetSetHas()
     {
         $engine = new ProjectTemplateEngine(new TemplateNameParser(), $this->loader);
-        $foo = new \Symfony\Component\Templating\Tests\Fixtures\SimpleHelper('foo');
+        $foo = new Fixtures\SimpleHelper('foo');
         $engine->set($foo);
         $this->assertEquals($foo, $engine->get('foo'), '->set() sets a helper');
 
@@ -78,7 +78,7 @@ class PhpEngineTest extends TestCase
     public function testUnsetHelper()
     {
         $engine = new ProjectTemplateEngine(new TemplateNameParser(), $this->loader);
-        $foo = new \Symfony\Component\Templating\Tests\Fixtures\SimpleHelper('foo');
+        $foo = new Fixtures\SimpleHelper('foo');
         $engine->set($foo);
 
         $this->expectException(\LogicException::class);
@@ -98,13 +98,13 @@ class PhpEngineTest extends TestCase
         }
 
         $engine = new ProjectTemplateEngine(new TemplateNameParser(), $this->loader, [new SlotsHelper()]);
-        $engine->set(new \Symfony\Component\Templating\Tests\Fixtures\SimpleHelper('bar'));
+        $engine->set(new Fixtures\SimpleHelper('bar'));
         $this->loader->setTemplate('foo.php', '<?php $this->extend("layout.php"); echo $this[\'foo\'].$foo ?>');
         $this->loader->setTemplate('layout.php', '-<?php echo $this[\'slots\']->get("_content") ?>-');
         $this->assertEquals('-barfoo-', $engine->render('foo.php', ['foo' => 'foo']), '->render() uses the decorator to decorate the template');
 
         $engine = new ProjectTemplateEngine(new TemplateNameParser(), $this->loader, [new SlotsHelper()]);
-        $engine->set(new \Symfony\Component\Templating\Tests\Fixtures\SimpleHelper('bar'));
+        $engine->set(new Fixtures\SimpleHelper('bar'));
         $this->loader->setTemplate('bar.php', 'bar');
         $this->loader->setTemplate('foo.php', '<?php $this->extend("layout.php"); echo $foo ?>');
         $this->loader->setTemplate('layout.php', '<?php echo $this->render("bar.php") ?>-<?php echo $this[\'slots\']->get("_content") ?>-');
