@@ -404,7 +404,7 @@ class PhpEngine implements EngineInterface, \ArrayAccess
                         $value = iconv($this->getCharset(), 'UTF-8', $value);
                     }
 
-                    $callback = function ($matches) {
+                    $callback = static function ($matches) {
                         $char = $matches[0];
 
                         // \xHH
