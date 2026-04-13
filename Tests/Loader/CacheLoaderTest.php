@@ -31,7 +31,7 @@ class CacheLoaderTest extends TestCase
 
     public function testLoad()
     {
-        $dir = sys_get_temp_dir().\DIRECTORY_SEPARATOR.mt_rand(111111, 999999);
+        $dir = sys_get_temp_dir().\DIRECTORY_SEPARATOR.random_int(111111, 999999);
         mkdir($dir, 0o777, true);
 
         $loader = new ProjectTemplateCacheLoader($varLoader = new ProjectTemplateLoaderVar(), $dir);
